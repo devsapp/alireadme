@@ -46,6 +46,7 @@ const stencil = `
 ## 部署 & 体验
 
 <appcenter>
+
 - :fire: 通过 [Serverless 应用中心](https://fcnext.console.aliyun.com/applications/create?template={{appName}}) ，
   [![Deploy with Severless Devs](https://img.alicdn.com/imgextra/i1/O1CN01w5RFbX1v45s8TIXPz_!!6000000006118-55-tps-95-28.svg)](https://fcnext.console.aliyun.com/applications/create?template={{appName}}) 该应用。
 </appcenter>
@@ -92,16 +93,16 @@ const replaceTag = (source: string, appendStr: string, tagName: string) => {
   if (start === -1) {
     const startStr = source.slice(0, end) || "";
     const endStr = source.slice(end) || "";
-    return `${startStr}\n${startTag}\n${appendStr}\n${endStr}`;
+    return `${startStr}\n\n${startTag}\n\n${appendStr}\n${endStr}`;
   } else if (end === -1) {
     const startStr = source.slice(0, start + startTag.length) || "";
     const endStr = source.slice(start + startTag.length) || "";
-    return `${startStr}\n${appendStr}\n${endTag}\n${endStr}`;
+    return `${startStr}\n\n${appendStr}\n\n${endTag}\n${endStr}`;
   }
 
   const startStr = source.slice(0, start + startTag.length) || "";
   const endStr = source.slice(end) || "";
-  return `${startStr}\n${appendStr}\n${endStr}`;
+  return `${startStr}\n\n${appendStr}\n\n${endStr}`;
 }
 
 const trimTag = (source: string, tagName: string) => {
@@ -157,7 +158,7 @@ export const genReadmeStr = (data: Record<string, any>) => {
   // 所需要的前置服务
   if (service) {
     service.pop();
-    const str = `| 服务 |  备注  |
+    const str = `\n\n| 服务 |  备注  |
 | --- |  --- |
 ${service.map(item => `| ${item.name} |  ${item.description} |`).join('\n')}`;
 
@@ -166,7 +167,7 @@ ${service.map(item => `| ${item.name} |  ${item.description} |`).join('\n')}`;
 
   // 当前应用所需权限
   if (auth) {
-    const str = `| 服务/业务 |  权限 |  备注  |
+    const str = `\n\n| 服务/业务 |  权限 |  备注  |
 | --- |  --- |   --- |
 ${auth.map(item => `| ${item.service} | ${item.name} |  ${item.description} |`).join('\n')}`;
 
@@ -185,13 +186,13 @@ ${auth.map(item => `| ${item.service} | ${item.name} |  ${item.description} |`).
 
   // 项目注意事项
   if (remark) {
-    endData = replaceTag(endData, `您还需要注意：\n${remark}`, 'remark');
+    endData = replaceTag(endData, `您还需要注意：   \n${remark}`, 'remark');
   } else {
     endData = replaceTag(endData, '', 'remark');
   }
   // 项目免责信息
   if (disclaimers) {
-    endData = replaceTag(endData, `免责声明：\n${disclaimers}`, 'disclaimers');
+    endData = replaceTag(endData, `免责声明：   \n${disclaimers}`, 'disclaimers');
   } else {
     endData = replaceTag(endData, '', 'disclaimers');
   }
@@ -266,13 +267,13 @@ export const parseReadme = () => {
   // 项目注意事项
   const remarkStr = trimTag(readmeStr, 'remark');
   if (remarkStr) {
-    data.remark = remarkStr.replace('您还需要注意：\n', '');
+    data.remark = remarkStr.replace('您还需要注意：   \n', '');
   }
 
   // 项目免责信息
   const disclaimersStr = trimTag(readmeStr, 'disclaimers');
   if (disclaimersStr) {
-    data.disclaimers = disclaimersStr.replace('免责声明：\n', '');
+    data.disclaimers = disclaimersStr.replace('免责声明：   \n', '');
   }
 
   // 代码仓库信息
