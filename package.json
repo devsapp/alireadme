@@ -1,5 +1,5 @@
 {
-  "name": "ServerlessDevsComponent",
+  "name": "readme",
   "version": "0.0.1",
   "description": "This is a component demo for Serverless Devs Tool ",
   "autoInstall": false,
@@ -19,25 +19,29 @@
     "Function Compute"
   ],
   "scripts": {
+    "ln": "rm -rf ~/.s/components/devsapp.cn/readme/dist && ln -s $(pwd)/dist ~/.s/components/devsapp.cn/readme/dist",
     "start": "npm run watch",
     "watch": "npm run postbuild && tsc -w",
     "prebuild": "rm -rf dist && npm i",
-    "build": "esbuild src/index.ts --bundle --log-level=error --minify --platform=node --format=cjs --target=node10.4 --external:@serverless-devs/core --outfile=dist/index.js",
-    "postbuild": "cp -r src/view dist/view"
+    "build": "npx ncc build src/index.ts -m -e @serverless-devs/core -o dist",
+    "postbuild": "npm run build-static",
+    "build-static": "mkdir -p dist/view/ && cp -f src/view/index.ejs dist/view/index.ejs && cd src/public && npm run build"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "@koa/cors": "^4.0.0",
     "@serverless-devs/core": "latest",
+    "koa-static": "^5.0.0",
+    "@types/koa": "^2.13.5",
+    "@types/node": "^14.0.23",
     "ejs": "^3.1.8",
+    "@vercel/ncc": "^0.24.0",
     "koa": "^2.14.1",
     "koa-onerror": "^4.2.0",
     "koa-router": "^12.0.0",
     "koa-views": "^8.0.0",
     "open": "^8.4.0",
-    "raw-body": "^2.5.1"
-  },
-  "devDependencies": {
-    "@types/node": "^14.0.23",
-    "esbuild": "^0.13.8",
+    "raw-body": "^2.5.1",
     "rimraf": "^3.0.2",
     "ts-node": "^8.10.2",
     "typescript": "^4.4.2"

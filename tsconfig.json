@@ -29,7 +29,9 @@
   "exclude": [
     "node_modules",
     "dist",
-    "test"
+    "test",
+    "src/public",
+    "src/view"
   ],
   "include": [
     "./src/**/*.ts",

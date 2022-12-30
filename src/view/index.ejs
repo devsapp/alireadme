@@ -7,14 +7,25 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
   <meta name="viewport" content="width=device-width">
   <title>Readme</title>
+  <link href="/static/index.css" rel="stylesheet">
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
   <script>
-    window.authorities = "<%=authorities%>"
+    window.values = {
+      service: JSON.parse(decodeURI(`<%- encodeURI(JSON.stringify(service)) %>`)),
+      auth: JSON.parse(decodeURI(`<%- encodeURI(JSON.stringify(auth)) %>`)),
+      codeUrl: decodeURI(`<%- encodeURI(codeUrl) %>`),
+      previewUrl: decodeURI(`<%- encodeURI(previewUrl) %>`),
+      remark: decodeURI(`<%- encodeURI(remark) %>`),
+      disclaimers: decodeURI(`<%- encodeURI(disclaimers) %>`),
+      appdetail: decodeURI(`<%- encodeURI(appdetail) %>`),
+      usedetail: decodeURI(`<%- encodeURI(usedetail) %>`),
+    };
   </script>
+  <script type="module" crossorigin src="/static/index.js"></script>
 </body>
 
 </html>

@@ -1,30 +1,30 @@
-
 > 注：当前项目为 Serverless Devs 应用，由于应用中会存在需要初始化才可运行的变量（例如应用部署地区、服务名、函数名等等），所以**不推荐**直接 Clone 本仓库到本地进行部署或直接复制 s.yaml 使用，**强烈推荐**通过 `s init ` 的方法或应用中心进行初始化，详情可参考[部署 & 体验](#部署--体验) 。
 
-# readme 帮助文档
+# start-django 帮助文档
+
 <p align="center" class="flex justify-center">
     <a href="https://www.serverless-devs.com" class="ml-1">
-    <img src="http://editor.devsapp.cn/icon?package=readme&type=packageType">
+    <img src="http://editor.devsapp.cn/icon?package=start-django&type=packageType">
   </a>
-  <a href="http://www.devsapp.cn/details.html?name=readme" class="ml-1">
-    <img src="http://editor.devsapp.cn/icon?package=readme&type=packageVersion">
+  <a href="http://www.devsapp.cn/details.html?name=start-django" class="ml-1">
+    <img src="http://editor.devsapp.cn/icon?package=start-django&type=packageVersion">
   </a>
-  <a href="http://www.devsapp.cn/details.html?name=readme" class="ml-1">
-    <img src="http://editor.devsapp.cn/icon?package=readme&type=packageDownload">
+  <a href="http://www.devsapp.cn/details.html?name=start-django" class="ml-1">
+    <img src="http://editor.devsapp.cn/icon?package=start-django&type=packageDownload">
   </a>
 </p>
 
 <description>
-阿里云 Serverless Devs 应用帮助文档标准化组件
+Django是一个开放源代码的Web应用框架，由Python写成。采用了MTV的框架模式，即模型M，视图V和模版T
 </description>
 
 <code_url>
-- [:smiley_cat: 代码](??????)
-</code_url>
-<preview>
 
-</preview>
-
+- [:smiley_cat: 代码](http://smiley)
+  </code_url>
+  <preview>
+- [:eyes: 预览](项目预览地址)
+  </preview>
 
 ## 前期准备
 
@@ -33,70 +33,57 @@
 <service>
 | 服务 |  备注  |
 | --- |  --- |
-| 对象存储 |  这是为什么需要这个服务的描述 |
-| 日志服务 |  阿斯顿 |
+| 对象存储 |  为什么需要该服务 |
 </service>
 
 推荐您拥有以下的产品权限 / 策略：
 <auth>
-| 服务/业务 |  权限 |  备注  |
-| --- |  --- |   --- |
-
+| 服务/业务 | 权限 | 备注 |
+| --- | --- | --- |
+| 函数计算 | AliyunFCFullAccess2 | xxx |
+| oss | AliyunOSSFullAccess | xxx |
 </auth>
 
 <remark>
 您还需要注意：
-============
+项目注意事项
 </remark>
 
 <disclaimers>
-
+asdasdaxc
 </disclaimers>
 
 ## 部署 & 体验
 
 <appcenter>
-- :fire: 通过 [Serverless 应用中心](https://fcnext.console.aliyun.com/applications/create?template=readme) ，
-  [![Deploy with Severless Devs](https://img.alicdn.com/imgextra/i1/O1CN01w5RFbX1v45s8TIXPz_!!6000000006118-55-tps-95-28.svg)](https://fcnext.console.aliyun.com/applications/create?template=readme) 该应用。
+- :fire: 通过 [Serverless 应用中心](https://fcnext.console.aliyun.com/applications/create?template=start-django) ，
+  [![Deploy with Severless Devs](https://img.alicdn.com/imgextra/i1/O1CN01w5RFbX1v45s8TIXPz_!!6000000006118-55-tps-95-28.svg)](https://fcnext.console.aliyun.com/applications/create?template=start-django) 该应用。
 </appcenter>
 <deploy>
 - 通过 [Serverless Devs Cli](https://www.serverless-devs.com/serverless-devs/install) 进行部署：
   - [安装 Serverless Devs Cli 开发者工具](https://www.serverless-devs.com/serverless-devs/install) ，并进行[授权信息配置](https://docs.serverless-devs.com/fc/config) ；
-  - 初始化项目：`s init readme -d readme `
-  - 进入项目，并进行项目部署：`cd readme && s deploy - y`
+  - 初始化项目：`s init start-django -d start-django `
+  - 进入项目，并进行项目部署：`cd start-django && s deploy - y`
 </deploy>
 
 ## 应用详情
 
-<appdetail id="flushContent">
-
 <appdetail>
-##  铯
+## abc
 
-阿斯顿你呢。  
-阿斯顿南美洲新名词   
-爱上怎么想吃
+asdkasmdkmzxcmansdjn  
+asndanmcnzxjcajsbda
 </appdetail>
 
 ## 使用文档
 
-<usedetail id="flushContent">
-
 <usedetail>
-````
-{
-  service: [ { name: '对象存储', description: '这是为什么需要这个服务的描述' } ],
-  auth: [],
-  remark: '============',
-  codeUrl: '??????',
-  previewUrl: '',
-  disclaimers: '',
-  appdetail: '',
-  usedetail: ''
-}
-````
-</usedetail>
+## zxcnbajsdj
 
+asdbzxbcasas 不能在现场你爸说
+啊实打实你的那时的梦想支持你啊是的。  
+阿森纳对你真心擦拭多久啊叫的
+</usedetail>
 
 <devgroup>
 ## 开发者社区
