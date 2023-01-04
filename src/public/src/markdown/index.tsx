@@ -35,9 +35,10 @@ class Markdown extends Component<
 > {
   constructor(props) {
     super(props);
+    const data = props.initdata || "";
     this.state = {
-      data: props.initdata || "",
-      showHtml: "",
+      data: data,
+      showHtml: md.render(data),
     };
 
     this.onChange = this.onChange.bind(this);

@@ -21,8 +21,8 @@ const stencil = `
 <description>
 </description>
 
-<code_url>
-</code_url>
+<codeUrl>
+</codeUrl>
 <preview>
 </preview>
 
@@ -74,7 +74,8 @@ const stencil = `
 
 您如果有关于错误的反馈或者未来的期待，您可以在 [Serverless Devs repo Issues](https://github.com/serverless-devs/serverless-devs/issues) 中进行反馈和交流。如果您想要加入我们的讨论组或者了解 FC 组件的最新动态，您可以通过以下渠道进行：
 
-<p align="center">
+<p align="center">  
+
 | <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407298906_20211028074819117230.png" width="130px" > | <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407044136_20211028074404326599.png" width="130px" > | <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407252200_20211028074732517533.png" width="130px" > |
 | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | <center>微信公众号：\`serverless\`</center>                                                                                         | <center>微信小助手：\`xiaojiangwh\`</center>                                                                                        | <center>钉钉交流群：\`33947367\`</center>                                                                                           |
@@ -131,7 +132,7 @@ const getStencil = () => {
 }
 
 export const genReadmeStr = (data: Record<string, any>) => {
-  logger.debug(`genReadmeStr data: ${JSON.stringify(data)}`);
+  logger.info(`genReadmeStr data: ${JSON.stringify(data)}`);
   const {
     appName,
     appDescription,
@@ -158,10 +159,9 @@ export const genReadmeStr = (data: Record<string, any>) => {
 
   // 所需要的前置服务
   if (service) {
-    service.pop();
     const str = `\n\n| 服务 |  备注  |
 | --- |  --- |
-${service.map(item => `| ${item.name} |  ${item.description} |`).join('\n')}`;
+${service.filter(item => item?.name).map(item => `| ${item.name} |  ${item.description} |`).join('\n')}`;
 
     endData = replaceTag(endData, str, 'service');
   }
@@ -199,9 +199,9 @@ ${auth.map(item => `| ${item.service} | ${item.name} |  ${item.description} |`).
   }
   // 代码仓库信息
   if (codeUrl) {
-    endData = replaceTag(endData, `- [:smiley_cat: 代码](${codeUrl})`, 'code_url');
+    endData = replaceTag(endData, `- [:smiley_cat: 代码](${codeUrl})`, 'codeUrl');
   } else {
-    endData = replaceTag(endData, '', 'code_url');
+    endData = replaceTag(endData, '', 'codeUrl');
   }
   // 项目预览地址
   if (previewUrl) {
@@ -278,7 +278,7 @@ export const parseReadme = () => {
   }
 
   // 代码仓库信息
-  const codeUrlStr = trimTag(readmeStr, 'code_url');
+  const codeUrlStr = trimTag(readmeStr, 'codeUrl');
   if (codeUrlStr) {
     const codeUrlMatch = codeUrlStr.match(/- \[:smiley_cat: 代码\]\((.+)\)/);
     if (codeUrlMatch && codeUrlMatch[1]) {
@@ -293,6 +293,6 @@ export const parseReadme = () => {
       data.previewUrl = previewUrlMatch[1];
     }
   }
-
+  logger.info(`parse readme: ${JSON.stringify(data)}`);
   return data;
 }

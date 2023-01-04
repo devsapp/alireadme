@@ -40,10 +40,36 @@ const Other: React.FC<IProps> = ({ field, selectedKey }) => {
     });
   };
 
+  const onSubmitAll = () => {
+    field.validate((error, payload) => {
+      if (error) {
+        return;
+      }
+      fetch("/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((res) => res.json())
+        .then(({ msg }) => {
+          Message.show(msg);
+        })
+        .catch((ex) => {
+          Message.error(ex);
+        });
+    });
+  };
+
   return (
     <div className="submit">
       <Button onClick={onSubmit} type="primary">
         提交
+      </Button>
+
+      <Button onClick={onSubmitAll} type="primary" style={{ marginLeft: 16 }}>
+        提交全部
       </Button>
     </div>
   );
