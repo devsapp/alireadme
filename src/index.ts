@@ -6,4 +6,8 @@ export default class ComponentDemo {
     const server = new Server();
     server.start();
   }
+
+  public index() {
+    this.run();
+  }
 }
