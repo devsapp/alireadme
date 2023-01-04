@@ -8,9 +8,6 @@ const Usedetail = ({ field }) => {
       change={(data) => {
         field.setValue("usedetail", data);
       }}
-      submit={() => {
-        console.log("usedetail: ", field.getValue("usedetail"));
-      }}
     />
   );
 };

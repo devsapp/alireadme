@@ -1,6 +1,7 @@
 import { lodash as _, fse, jsyaml } from '@serverless-devs/core';
 import path from 'path';
 import { parseReadme } from './stencil';
+import logger from '../common/logger';
 
 const getPublishFilePath = (baseDir: string): string => {
   const yamlFilePath = path.join(baseDir, 'publish.yaml');
@@ -17,7 +18,7 @@ const getPublishFilePath = (baseDir: string): string => {
 
 export const getPublishValue = () => {
   const publishFilePath = getPublishFilePath(process.cwd());
-  console.log('publish file path: ', publishFilePath);
+  logger.debug(`publish file path: ${publishFilePath}`);
   return jsyaml.load(fse.readFileSync(publishFilePath, 'utf8'))
 }
 
@@ -54,7 +55,7 @@ export const getInitValues = (): Record<string, any> => {
   });
 
   values.auth = auth;
-  console.log(values);
+  logger.debug(`getInitValues: ${JSON.stringify(values)}`);
   return values;
 }
 

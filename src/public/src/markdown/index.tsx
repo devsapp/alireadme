@@ -30,7 +30,7 @@ const randomString = (len = 32) => {
 };
 
 class Markdown extends Component<
-  { submit: () => void; change: (data: string) => void; initdata?: string },
+  { change: (data: string) => void; initdata?: string },
   { data: string; showHtml: string }
 > {
   constructor(props) {
@@ -95,7 +95,6 @@ class Markdown extends Component<
       })
       .catch((ex) => {
         console.error("上传文件错误: ", ex);
-        console.log(this.state);
         const d = this.state.data.replace(
           `!()[uploading?${randomText}]`,
           `![上传文件失败]()`

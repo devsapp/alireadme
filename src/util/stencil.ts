@@ -1,5 +1,6 @@
 import path from "path";
 import { fse } from '@serverless-devs/core';
+import logger from '../common/logger';
 
 const stencil = `
 > 注：当前项目为 Serverless Devs 应用，由于应用中会存在需要初始化才可运行的变量（例如应用部署地区、服务名、函数名等等），所以**不推荐**直接 Clone 本仓库到本地进行部署或直接复制 s.yaml 使用，**强烈推荐**通过 \`s init \` 的方法或应用中心进行初始化，详情可参考[部署 & 体验](#部署--体验) 。
@@ -87,7 +88,7 @@ const replaceTag = (source: string, appendStr: string, tagName: string) => {
   const start = source.indexOf(startTag);
   const end = source.indexOf(endTag);
   if (start === -1 && end === -1) {
-    console.log(`没有找到 tag: ${tagName}`);
+    logger.debug(`没有找到 tag: ${tagName}`);
     return source;
   }
   if (start === -1) {
@@ -111,7 +112,7 @@ const trimTag = (source: string, tagName: string) => {
   const start = source.indexOf(startTag);
   const end = source.indexOf(endTag);
   if (start === -1 || end === -1) {
-    console.log(`没有找到 tag: ${tagName}`);
+    logger.debug(`没有找到 tag: ${tagName}`);
     return '';
   }
 
@@ -130,7 +131,7 @@ const getStencil = () => {
 }
 
 export const genReadmeStr = (data: Record<string, any>) => {
-  console.log('data: ', data);
+  logger.debug(`genReadmeStr data: ${JSON.stringify(data)}`);
   const {
     appName,
     appDescription,

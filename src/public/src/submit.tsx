@@ -10,7 +10,6 @@ type IProps = {
 const Other: React.FC<IProps> = ({ field, selectedKey }) => {
   const onSubmit = () => {
     field.validate((error, values) => {
-      console.log(error, values);
       const payload: any = {};
       if (selectedKey === "appdetail") {
         payload.appdetail = values.appdetail;

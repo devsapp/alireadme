@@ -10,6 +10,7 @@ import views from 'koa-views';
 import serve from 'koa-static';
 import { getInitValues, getPublishValue } from './util';
 import { genReadmeStr, getReadmePath } from './util/stencil';
+import logger from './common/logger';
 
 const router = Router();
 
@@ -98,7 +99,7 @@ export default class Server {
             'safety_code': token
           }
         });
-        console.log('resData: ', resData);
+        logger.debug(`http://editor.devsapp.cn/images resData: ${JSON.stringify(resData)}`);
         if (resData.error) {
           ctx.body = {
             "code": 422,
@@ -117,7 +118,7 @@ export default class Server {
             json: false,
             body: Buffer.from(base64, 'base64'),
           });
-          console.log('上传 res: ', res);
+          logger.debug(`上传 res: ${JSON.stringify(res)}`);
           if (res?.body?.includes?.("Error")) {
             ctx.body = {
               "code": 422,
@@ -131,7 +132,7 @@ export default class Server {
           }
         }
       } catch (ex) {
-        console.log('出现了异常：', ex);
+        logger.error(`出现了异常: ${ex}`);
         ctx.body = {
           "code": 422,
           "msg": ex.message,

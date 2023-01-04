@@ -8,9 +8,6 @@ const Appdetail = ({ field }) => {
       change={(data) => {
         field.setValue("appdetail", data);
       }}
-      submit={() => {
-        console.log("help: ", field.getValue("appdetail"));
-      }}
     />
   );
 };
