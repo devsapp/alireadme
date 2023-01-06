@@ -22,12 +22,12 @@
 
 <codeUrl>
 
-- [:smiley_cat: 代码](=========)
+- [:smiley_cat: 代码](ssss)
 
 </codeUrl>
 <preview>
 
-- [:eyes: 预览](xxxxx)
+- [:eyes: 预览](ssss)
 
 </preview>
 
@@ -42,34 +42,26 @@
 
 | 服务 |  备注  |
 | --- |  --- |
-| 对象存储 |  oss |
-| 日志服务 |  slss |
-| NAS服务 |  nas |
+| 函数计算 |  testabc |
+| 函数计算 |  aasadzc |
 
 </service>
 
 推荐您拥有以下的产品权限 / 策略：
 <auth>
-
-
-
-| 服务/业务 |  权限 |  备注  |
-| --- |  --- |   --- |
-| 函数计算 | 函数计算全部权限 |  可以在publish.yaml中修改具体所需权限 |
-
 </auth>
 
 <remark>
 
 您还需要注意：   
-xxxx
+ssss
 
 </remark>
 
 <disclaimers>
 
 免责声明：   
-xxxx
+ssss
 
 </disclaimers>
 
@@ -94,11 +86,16 @@ xxxx
 
 <appdetail>
 
-### ABC
+## abc
+- 7878
+- abcas
+- [abc](aaaaa)
 
-萨达姆 现场啊
 
-阿斯顿
+### asdanm
+
+- zxcm,as
+- asdmzncxm
 </appdetail>
 
 ## 使用文档
@@ -108,13 +105,22 @@ xxxx
 
 <usedetail>
 
-### abc
+## ancmxznmc
+- 78ancmxznmc8
+- ancmxznmc
+- [ancmxznmc](aaaaa)
 
-asdasd
+
+### ancmxznmc
+
+- ancmxznmc
+- aancmxznmc
 </usedetail>
 
 
 <devgroup>
+
+
 ## 开发者社区
 
 您如果有关于错误的反馈或者未来的期待，您可以在 [Serverless Devs repo Issues](https://github.com/serverless-devs/serverless-devs/issues) 中进行反馈和交流。如果您想要加入我们的讨论组或者了解 FC 组件的最新动态，您可以通过以下渠道进行：

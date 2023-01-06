@@ -1,5 +1,5 @@
 import path from "path";
-import { fse } from '@serverless-devs/core';
+import { fse, lodash } from '@serverless-devs/core';
 import logger from '../common/logger';
 
 const stencil = `
@@ -70,6 +70,8 @@ const stencil = `
 
 
 <devgroup>
+
+
 ## 开发者社区
 
 您如果有关于错误的反馈或者未来的期待，您可以在 [Serverless Devs repo Issues](https://github.com/serverless-devs/serverless-devs/issues) 中进行反馈和交流。如果您想要加入我们的讨论组或者了解 FC 组件的最新动态，您可以通过以下渠道进行：
@@ -132,7 +134,7 @@ const getStencil = () => {
 }
 
 export const genReadmeStr = (data: Record<string, any>) => {
-  logger.info(`genReadmeStr data: ${JSON.stringify(data)}`);
+  logger.debug(`genReadmeStr data: ${JSON.stringify(data)}`);
   const {
     appName,
     appDescription,
@@ -158,7 +160,7 @@ export const genReadmeStr = (data: Record<string, any>) => {
   }
 
   // 所需要的前置服务
-  if (service) {
+  if (!lodash.isEmpty(service)) {
     const str = `\n\n| 服务 |  备注  |
 | --- |  --- |
 ${service.filter(item => item?.name).map(item => `| ${item.name} |  ${item.description} |`).join('\n')}`;
@@ -167,7 +169,8 @@ ${service.filter(item => item?.name).map(item => `| ${item.name} |  ${item.descr
   }
 
   // 当前应用所需权限
-  if (auth) {
+  if (!lodash.isEmpty(auth)) {
+    console.log('auth:: ', auth);
     const str = `\n\n| 服务/业务 |  权限 |  备注  |
 | --- |  --- |   --- |
 ${auth.map(item => `| ${item.service} | ${item.name} |  ${item.description} |`).join('\n')}`;
@@ -293,6 +296,6 @@ export const parseReadme = () => {
       data.previewUrl = previewUrlMatch[1];
     }
   }
-  logger.info(`parse readme: ${JSON.stringify(data)}`);
+  logger.debug(`parse readme: ${JSON.stringify(data)}`);
   return data;
 }
