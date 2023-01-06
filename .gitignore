@@ -2,3 +2,4 @@ node_modules
 .s
 .DS_Store
 dist
+src/readme.md

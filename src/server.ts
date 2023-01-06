@@ -9,7 +9,7 @@ import getRowBody from 'raw-body';
 import views from 'koa-views';
 import serve from 'koa-static';
 import { getInitValues, getPublishValue } from './util';
-import { genReadmeStr, getReadmePath } from './util/stencil';
+import { genReadmeStr, getReadmePath, getSrcReadmePath } from './util/stencil';
 import logger from './common/logger';
 
 const router = Router();
@@ -151,6 +151,7 @@ export default class Server {
       const str = genReadmeStr(_.defaults(body, values));
       // console.log(str);
       fse.writeFileSync(getReadmePath(), str);
+      fse.writeFileSync(getSrcReadmePath(), str);
 
       ctx.body = {
         "code": 200,

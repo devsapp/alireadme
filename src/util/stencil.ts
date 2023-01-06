@@ -47,15 +47,18 @@ const stencil = `
 ## 部署 & 体验
 
 <appcenter>
-
+   
 - :fire: 通过 [Serverless 应用中心](https://fcnext.console.aliyun.com/applications/create?template={{appName}}) ，
   [![Deploy with Severless Devs](https://img.alicdn.com/imgextra/i1/O1CN01w5RFbX1v45s8TIXPz_!!6000000006118-55-tps-95-28.svg)](https://fcnext.console.aliyun.com/applications/create?template={{appName}}) 该应用。
+   
 </appcenter>
 <deploy>
+    
 - 通过 [Serverless Devs Cli](https://www.serverless-devs.com/serverless-devs/install) 进行部署：
   - [安装 Serverless Devs Cli 开发者工具](https://www.serverless-devs.com/serverless-devs/install) ，并进行[授权信息配置](https://docs.serverless-devs.com/fc/config) ；
   - 初始化项目：\`s init {{appName}} -d {{appName}} \`
   - 进入项目，并进行项目部署：\`cd {{appName}} && s deploy - y\`
+   
 </deploy>
 
 ## 应用详情
@@ -85,8 +88,8 @@ const stencil = `
 </devgroup>
 `;
 
-const replaceTag = (source: string, appendStr: string, tagName: string) => {
-  const startTag = `<${tagName}>`;
+const replaceTag = (source: string, appendStr: string, tagName: string, attribute?: string) => {
+  const startTag = `<${tagName}${attribute || ''}>`;
   const endTag = `</${tagName}>`;
   const start = source.indexOf(startTag);
   const end = source.indexOf(endTag);
@@ -109,8 +112,8 @@ const replaceTag = (source: string, appendStr: string, tagName: string) => {
   return `${startStr}\n\n${appendStr}\n\n${endStr}`;
 }
 
-const trimTag = (source: string, tagName: string) => {
-  const startTag = `<${tagName}>`;
+const trimTag = (source: string, tagName: string, attribute?: string) => {
+  const startTag = `<${tagName}${attribute || ''}>`;
   const endTag = `</${tagName}>`;
   const start = source.indexOf(startTag);
   const end = source.indexOf(endTag);
@@ -123,6 +126,7 @@ const trimTag = (source: string, tagName: string) => {
 }
 
 export const getReadmePath = () => path.join(process.cwd(), 'readme.md');
+export const getSrcReadmePath = () => path.join(process.cwd(), 'src', 'readme.md');
 
 const getStencil = () => {
   const filePath = getReadmePath();
@@ -180,12 +184,12 @@ ${auth.map(item => `| ${item.service} | ${item.name} |  ${item.description} |`).
 
   // 帮助文档
   if (appdetail) {
-    endData = replaceTag(endData, appdetail, 'appdetail');
+    endData = replaceTag(endData, appdetail, 'appdetail', ' id="flushContent"');
   }
 
   // 使用文档/后续操作
   if (usedetail) {
-    endData = replaceTag(endData, usedetail, 'usedetail');
+    endData = replaceTag(endData, usedetail, 'usedetail', ' id="flushContent"');
   }
 
   // 项目注意事项
@@ -257,13 +261,13 @@ export const parseReadme = () => {
   }
 
   // 帮助文档
-  const appdetailStr = trimTag(readmeStr, 'appdetail');
+  const appdetailStr = trimTag(readmeStr, 'appdetail', ' id="flushContent"');
   if (appdetailStr) {
     data.appdetail = appdetailStr;
   }
 
   // 使用文档/后续操作
-  const usedetailStr = trimTag(readmeStr, 'usedetail');
+  const usedetailStr = trimTag(readmeStr, 'usedetail', ' id="flushContent"');
   if (usedetailStr) {
     data.usedetail = usedetailStr;
   }

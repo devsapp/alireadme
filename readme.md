@@ -22,12 +22,12 @@
 
 <codeUrl>
 
-- [:smiley_cat: 代码](ssss)
+- [:smiley_cat: 代码](xxxxx)
 
 </codeUrl>
 <preview>
 
-- [:eyes: 预览](ssss)
+- [:eyes: 预览](xxxxx)
 
 </preview>
 
@@ -42,8 +42,8 @@
 
 | 服务 |  备注  |
 | --- |  --- |
-| 函数计算 |  testabc |
-| 函数计算 |  aasadzc |
+| 函数计算 |  xxxxasa |
+| 日志服务 |  asdasdzxc |
 
 </service>
 
@@ -54,67 +54,56 @@
 <remark>
 
 您还需要注意：   
-ssss
+xxxxx
 
 </remark>
 
 <disclaimers>
 
 免责声明：   
-ssss
+xxxxx
 
 </disclaimers>
 
 ## 部署 & 体验
 
 <appcenter>
-
+   
 - :fire: 通过 [Serverless 应用中心](https://fcnext.console.aliyun.com/applications/create?template=readme) ，
   [![Deploy with Severless Devs](https://img.alicdn.com/imgextra/i1/O1CN01w5RFbX1v45s8TIXPz_!!6000000006118-55-tps-95-28.svg)](https://fcnext.console.aliyun.com/applications/create?template=readme) 该应用。
+   
 </appcenter>
 <deploy>
+    
 - 通过 [Serverless Devs Cli](https://www.serverless-devs.com/serverless-devs/install) 进行部署：
   - [安装 Serverless Devs Cli 开发者工具](https://www.serverless-devs.com/serverless-devs/install) ，并进行[授权信息配置](https://docs.serverless-devs.com/fc/config) ；
   - 初始化项目：`s init readme -d readme `
   - 进入项目，并进行项目部署：`cd readme && s deploy - y`
+   
 </deploy>
 
 ## 应用详情
 
 <appdetail id="flushContent">
 
+## asdnnmc
 
-<appdetail>
+- asndnxzmcn 
+- zxncnaksd
+- zxncmnajd
 
-## abc
-- 7878
-- abcas
-- [abc](aaaaa)
-
-
-### asdanm
-
-- zxcm,as
-- asdmzncxm
 </appdetail>
 
 ## 使用文档
 
 <usedetail id="flushContent">
 
+## asdnnmc
 
-<usedetail>
+- asndnxzmcn 
+- zxncnaksd
+- zxncmnajd
 
-## ancmxznmc
-- 78ancmxznmc8
-- ancmxznmc
-- [ancmxznmc](aaaaa)
-
-
-### ancmxznmc
-
-- ancmxznmc
-- aancmxznmc
 </usedetail>
 
 
