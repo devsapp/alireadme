@@ -1,6 +1,7 @@
 import path from "path";
 import { fse, lodash } from '@serverless-devs/core';
 import logger from '../common/logger';
+import { SERVICES } from "../constant";
 
 const stencil = `
 > 注：当前项目为 Serverless Devs 应用，由于应用中会存在需要初始化才可运行的变量（例如应用部署地区、服务名、函数名等等），所以**不推荐**直接 Clone 本仓库到本地进行部署或直接复制 s.yaml 使用，**强烈推荐**通过 \`s init \` 的方法或应用中心进行初始化，详情可参考[部署 & 体验](#部署--体验) 。
@@ -128,7 +129,7 @@ const trimTag = (source: string, tagName: string, attribute?: string) => {
 export const getReadmePath = () => path.join(process.cwd(), 'readme.md');
 export const getSrcReadmePath = () => path.join(process.cwd(), 'src', 'readme.md');
 
-const getStencil = () => {
+export const getStencil = () => {
   const filePath = getReadmePath();
   if (!fse.existsSync(filePath)) {
     return '';
@@ -204,7 +205,7 @@ ${auth.map(item => `| ${item.service} | ${item.name} |  ${item.description} |`).
   } else {
     endData = replaceTag(endData, '', 'disclaimers');
   }
-  // 代码仓库信息
+  // 代码仓库地址
   if (codeUrl) {
     endData = replaceTag(endData, `- [:smiley_cat: 代码](${codeUrl})`, 'codeUrl');
   } else {
@@ -220,8 +221,8 @@ ${auth.map(item => `| ${item.service} | ${item.name} |  ${item.description} |`).
   return endData;
 }
 
-export const parseReadme = () => {
-  const readmeStr = getStencil();
+// Tips: 使用parseReadme，需要发布npm包时，需要将@serverless-devs/core放入生产依赖
+export const parseReadme = (readmeStr:string) => {
   if (!readmeStr) {
     return {};
   }
@@ -235,7 +236,8 @@ export const parseReadme = () => {
       // 必须保证 | ** | ** |  才允许处理
       if (str.startsWith('| ') && str.endsWith(' |')) {
         const [, name, description] = str.split('|');
-        return { name: name.trim(), description: description.trim() };
+        const findObj = lodash.find(SERVICES, obj=>obj.value === name.trim());
+        return { ...findObj, name: name.trim(), description: description.trim() };
       }
       return;
     }).filter(item => item);
@@ -284,7 +286,7 @@ export const parseReadme = () => {
     data.disclaimers = disclaimersStr.replace('免责声明：   \n', '');
   }
 
-  // 代码仓库信息
+  // 代码仓库地址
   const codeUrlStr = trimTag(readmeStr, 'codeUrl');
   if (codeUrlStr) {
     const codeUrlMatch = codeUrlStr.match(/- \[:smiley_cat: 代码\]\((.+)\)/);

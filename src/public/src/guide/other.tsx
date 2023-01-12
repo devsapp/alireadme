@@ -17,7 +17,7 @@ const Other: React.FC<IProps> = ({ field }) => {
     <Typography>
       <H2>其他信息</H2>
       <Form labelAlign="left" labelTextAlign="left" field={field} {...layout}>
-        <Form.Item label="代码仓库信息">
+        <Form.Item label="代码仓库地址">
           <Input {...init("codeUrl")} />
         </Form.Item>
         <Form.Item label="项目预览地址">

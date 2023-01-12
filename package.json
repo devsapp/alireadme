@@ -1,6 +1,6 @@
 {
-  "name": "readme",
-  "version": "0.0.1",
+  "name": "@serverless-devs/alireadme",
+  "version": "0.0.3",
   "description": "This is a component demo for Serverless Devs Tool ",
   "autoInstall": false,
   "homepage": "https://www.serverless-devs.com",
@@ -9,6 +9,7 @@
   "license": "MIT",
   "main": "./dist/index.js",
   "publishConfig": {
+    "registry": "https://registry.npmjs.org",
     "access": "public"
   },
   "keywords": [

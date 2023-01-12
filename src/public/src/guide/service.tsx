@@ -4,16 +4,6 @@ import { Typography, Input, Select, Button, Form, Grid } from "@alifd/next";
 
 const { H2, Text } = Typography;
 const { Row, Col } = Grid;
-const selectDataSource = [
-  "函数计算",
-  "对象存储",
-  "日志服务",
-  "NAS服务",
-  "容器镜像服务",
-  "VPC服务",
-  "表格存储",
-  "SAE",
-];
 
 type IProps = {
   field: any;
@@ -60,7 +50,7 @@ const Service: React.FC<IProps> = ({ field }) => {
               <Col span="10">
                 <Form.Item>
                   <Select
-                    dataSource={selectDataSource}
+                    dataSource={_.get(window, "SERVICES")}
                     style={{ width: "100%" }}
                     {...field.init(`service.${index}.name`, {
                       initValue: item.name,

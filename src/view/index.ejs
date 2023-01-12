@@ -24,6 +24,7 @@
       appdetail: decodeURI(`<%- encodeURI(appdetail) %>`),
       usedetail: decodeURI(`<%- encodeURI(usedetail) %>`),
     };
+    window.SERVICES = JSON.parse(`<%- (SERVICES) %>`);
   </script>
   <script type="module" crossorigin src="/static/index.js"></script>
 </body>
