@@ -1,8 +1,9 @@
 import { lodash as _, fse, jsyaml } from '@serverless-devs/core';
 import path from 'path';
-import { parseReadme, getStencil } from './stencil';
+import { getStencil } from './stencil';
 import logger from '../common/logger';
-export { parseReadme } from './stencil';
+import { parseReadme } from "@serverless-cd/ui-help";
+
 
 
 const getPublishFilePath = (baseDir: string): string => {

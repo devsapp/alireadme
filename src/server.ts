@@ -11,7 +11,7 @@ import serve from 'koa-static';
 import { getInitValues, getPublishValue } from './util';
 import { genReadmeStr, getReadmePath, getSrcReadmePath } from './util/stencil';
 import logger from './common/logger';
-import { SERVICES } from './constant';
+import { SERVICES } from '@serverless-cd/ui-help/lib/constant';
 
 const router = Router();
 

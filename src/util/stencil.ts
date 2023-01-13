@@ -1,7 +1,6 @@
 import path from "path";
 import { fse, lodash } from '@serverless-devs/core';
 import logger from '../common/logger';
-import { SERVICES } from "../constant";
 
 const stencil = `
 > 注：当前项目为 Serverless Devs 应用，由于应用中会存在需要初始化才可运行的变量（例如应用部署地区、服务名、函数名等等），所以**不推荐**直接 Clone 本仓库到本地进行部署或直接复制 s.yaml 使用，**强烈推荐**通过 \`s init \` 的方法或应用中心进行初始化，详情可参考[部署 & 体验](#部署--体验) 。
@@ -113,18 +112,6 @@ const replaceTag = (source: string, appendStr: string, tagName: string, attribut
   return `${startStr}\n\n${appendStr}\n\n${endStr}`;
 }
 
-const trimTag = (source: string, tagName: string, attribute?: string) => {
-  const startTag = `<${tagName}${attribute || ''}>`;
-  const endTag = `</${tagName}>`;
-  const start = source.indexOf(startTag);
-  const end = source.indexOf(endTag);
-  if (start === -1 || end === -1) {
-    logger.debug(`没有找到 tag: ${tagName}`);
-    return '';
-  }
-
-  return source.slice(start + startTag.length, end).trim();
-}
 
 export const getReadmePath = () => path.join(process.cwd(), 'readme.md');
 export const getSrcReadmePath = () => path.join(process.cwd(), 'src', 'readme.md');
@@ -221,87 +208,4 @@ ${auth.map(item => `| ${item.service} | ${item.name} |  ${item.description} |`).
   return endData;
 }
 
-// Tips: 使用parseReadme，需要发布npm包时，需要将@serverless-devs/core放入生产依赖
-export const parseReadme = (readmeStr:string) => {
-  if (!readmeStr) {
-    return {};
-  }
-  const data: any = {};
 
-  // 所需要的前置服务
-  const serviceStr = trimTag(readmeStr, 'service');
-  if (serviceStr) {
-    const d = serviceStr.split('\n').map(item => {
-      const str = item.trim();
-      // 必须保证 | ** | ** |  才允许处理
-      if (str.startsWith('| ') && str.endsWith(' |')) {
-        const [, name, description] = str.split('|');
-        const findObj = lodash.find(SERVICES, obj=>obj.value === name.trim());
-        return { ...findObj, name: name.trim(), description: description.trim() };
-      }
-      return;
-    }).filter(item => item);
-    d.shift();
-    d.shift();
-    data.service = d;
-  }
-
-  // 当前应用所需权限
-  const authStr = trimTag(readmeStr, 'auth');
-  if (authStr) {
-    const d = authStr.split('\n').map(item => {
-      const str = item.trim();
-      if (str.startsWith('| ') && str.endsWith(' |')) {
-        const [, service, name, description] = str.split('|');
-        return { service: service.trim(), name: name.trim(), description: description.trim() };
-      }
-      return;
-    }).filter(item => item);
-    d.shift();
-    d.shift();
-    data.auth = d;
-  }
-
-  // 帮助文档
-  const appdetailStr = trimTag(readmeStr, 'appdetail', ' id="flushContent"');
-  if (appdetailStr) {
-    data.appdetail = appdetailStr;
-  }
-
-  // 使用文档/后续操作
-  const usedetailStr = trimTag(readmeStr, 'usedetail', ' id="flushContent"');
-  if (usedetailStr) {
-    data.usedetail = usedetailStr;
-  }
-
-  // 项目注意事项
-  const remarkStr = trimTag(readmeStr, 'remark');
-  if (remarkStr) {
-    data.remark = remarkStr.replace('您还需要注意：   \n', '');
-  }
-
-  // 项目免责信息
-  const disclaimersStr = trimTag(readmeStr, 'disclaimers');
-  if (disclaimersStr) {
-    data.disclaimers = disclaimersStr.replace('免责声明：   \n', '');
-  }
-
-  // 代码仓库地址
-  const codeUrlStr = trimTag(readmeStr, 'codeUrl');
-  if (codeUrlStr) {
-    const codeUrlMatch = codeUrlStr.match(/- \[:smiley_cat: 代码\]\((.+)\)/);
-    if (codeUrlMatch && codeUrlMatch[1]) {
-      data.codeUrl = codeUrlMatch[1];
-    }
-  }
-  // 项目预览地址
-  const previewUrlStr = trimTag(readmeStr, 'preview');
-  if (previewUrlStr) {
-    const previewUrlMatch = previewUrlStr.match(/- \[:eyes: 预览\]\((.+)\)/);
-    if (previewUrlMatch && previewUrlMatch[1]) {
-      data.previewUrl = previewUrlMatch[1];
-    }
-  }
-  logger.debug(`parse readme: ${JSON.stringify(data)}`);
-  return data;
-}
