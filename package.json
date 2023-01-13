@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@koa/cors": "^4.0.0",
-    "@serverless-cd/ui-help": "^0.0.1",
+    "@serverless-cd/ui-help": "^0.0.2",
     "@serverless-devs/core": "latest",
     "@types/koa": "^2.13.5",
     "@types/node": "^14.0.23",
