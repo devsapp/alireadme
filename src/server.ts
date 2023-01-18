@@ -11,6 +11,7 @@ import serve from 'koa-static';
 import { getInitValues, getPublishValue } from './util';
 import { genReadmeStr, getReadmePath, getSrcReadmePath } from './util/stencil';
 import logger from './common/logger';
+import { SERVICES } from '@serverless-cd/ui-help/lib/constant';
 
 const router = Router();
 
@@ -70,7 +71,7 @@ export default class Server {
   handleRouter() {
     router.get('/', async (ctx) => {
       const values = getInitValues();
-      await ctx.render('index', { ...values });
+      await ctx.render('index', { ...values, SERVICES: JSON.stringify(SERVICES) });
     });
 
     router.post('/image', async (ctx) => {

@@ -1,7 +1,10 @@
 import { lodash as _, fse, jsyaml } from '@serverless-devs/core';
 import path from 'path';
-import { parseReadme } from './stencil';
+import { getStencil } from './stencil';
 import logger from '../common/logger';
+import { parseReadme } from "@serverless-cd/ui-help";
+
+
 
 const getPublishFilePath = (baseDir: string): string => {
   const yamlFilePath = path.join(baseDir, 'publish.yaml');
@@ -24,7 +27,8 @@ export const getPublishValue = () => {
 
 
 export const getInitValues = (): Record<string, any> => {
-  const values = _.defaults(parseReadme(), {
+  const readmeStr = getStencil();
+  const values = _.defaults(parseReadme(readmeStr), {
     codeUrl: '',
     previewUrl: '',
     service: [],
