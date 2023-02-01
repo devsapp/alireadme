@@ -15,8 +15,6 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm install
       - run: npm install -g @serverless-devs/s
-      - run: npm run prebuild
       - run: npm run build
-      - run: npm run postbuild
       - run: s cli registry login --token ${{secrets.Token}} 
       - run: s cli registry publish
