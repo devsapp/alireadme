@@ -1,5 +1,6 @@
 import Koa from 'koa';
-import { getRootHome, fse, request, lodash as _ } from '@serverless-devs/core';
+import { getRootHome, fse, lodash as _ } from '@serverless-devs/core';
+import fetch from 'node-fetch';
 import onError from 'koa-onerror';
 import Router from 'koa-router';
 import cors from '@koa/cors';
@@ -93,13 +94,12 @@ export default class Server {
       }
 
       try {
-        const resData = await request('http://editor.devsapp.cn/images', {
+        const params = new URLSearchParams();
+        params.append('safety_code', token);
+        const resData = await (await fetch('http://editor.devsapp.cn/images', {
           method: 'POST',
-          form: true,
-          body: {
-            'safety_code': token
-          }
-        });
+          body: params,
+        })).json() as any;
         logger.debug(`http://editor.devsapp.cn/images resData: ${JSON.stringify(resData)}`);
         if (resData.error) {
           ctx.body = {
@@ -114,12 +114,11 @@ export default class Server {
         } else {
           const body = JSON.parse((await this.getBody(ctx)).toString());
           const base64 = (body.file || '').replace(/^data:image\/\w+;base64,/, "");
-          const res = await request(resData.upload, {
+          const res = await (await fetch(resData.upload, {
             'method': 'PUT',
-            json: false,
             body: Buffer.from(base64, 'base64'),
-          });
-          logger.debug(`上传 res: ${JSON.stringify(res)}`);
+          })).text() as any;
+          logger.debug(`上传 res: ${res}`);
           if (res?.body?.includes?.("Error")) {
             ctx.body = {
               "code": 422,
