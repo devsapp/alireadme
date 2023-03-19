@@ -22,7 +22,7 @@
   "scripts": {
     "ln": "rm -rf ~/.s/components/devsapp.cn/readme/dist && ln -s $(pwd)/dist ~/.s/components/devsapp.cn/readme/dist",
     "start": "npm run watch",
-    "watch": "npm run postbuild && tsc -w",
+    "watch": "npm run postbuild && echo \"(new (require('./server').default)).start()\" > dist/run.js && tsc -w",
     "prebuild": "rm -rf dist && npm i",
     "build": "npx ncc build src/index.ts -m -e @serverless-devs/core -o dist",
     "postbuild": "npm run build-static",
@@ -45,6 +45,7 @@
     "raw-body": "^2.5.1",
     "rimraf": "^3.0.2",
     "ts-node": "^8.10.2",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.2",
+    "node-fetch": "^2.6.9"
   }
 }
