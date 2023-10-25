@@ -1,9 +1,9 @@
 import path from "path";
-import { fse, lodash } from '@serverless-devs/core';
-import logger from '../common/logger';
+import { fse, lodash } from "@serverless-devs/core";
+import logger from "../common/logger";
 
 const stencil = `
-> 注：当前项目为 Serverless Devs 应用，由于应用中会存在需要初始化才可运行的变量（例如应用部署地区、服务名、函数名等等），所以**不推荐**直接 Clone 本仓库到本地进行部署或直接复制 s.yaml 使用，**强烈推荐**通过 \`s init \` 的方法或应用中心进行初始化，详情可参考[部署 & 体验](#部署--体验) 。
+> 注：当前项目为 Serverless Devs 应用，由于应用中会存在需要初始化才可运行的变量（例如应用部署地区、函数名等等），所以**不推荐**直接 Clone 本仓库到本地进行部署或直接复制 s.yaml 使用，**强烈推荐**通过 \`s init \` 的方法或应用中心进行初始化，详情可参考[部署 & 体验](#部署--体验) 。
 
 # {{appName}} 帮助文档
 <p align="center" class="flex justify-center">
@@ -56,8 +56,8 @@ const stencil = `
     
 - 通过 [Serverless Devs Cli](https://www.serverless-devs.com/serverless-devs/install) 进行部署：
   - [安装 Serverless Devs Cli 开发者工具](https://www.serverless-devs.com/serverless-devs/install) ，并进行[授权信息配置](https://docs.serverless-devs.com/fc/config) ；
-  - 初始化项目：\`s init {{appName}} -d {{appName}} \`
-  - 进入项目，并进行项目部署：\`cd {{appName}} && s deploy - y\`
+  - 初始化项目：\`s init {{appName}} -d {{appName}}\`
+  - 进入项目，并进行项目部署：\`cd {{appName}} && s deploy -y\`
    
 </deploy>
 
@@ -88,8 +88,13 @@ const stencil = `
 </devgroup>
 `;
 
-const replaceTag = (source: string, appendStr: string, tagName: string, attribute?: string) => {
-  const startTag = `<${tagName}${attribute || ''}>`;
+const replaceTag = (
+  source: string,
+  appendStr: string,
+  tagName: string,
+  attribute?: string
+) => {
+  const startTag = `<${tagName}${attribute || ""}>`;
   const endTag = `</${tagName}>`;
   const start = source.indexOf(startTag);
   const end = source.indexOf(endTag);
@@ -110,20 +115,20 @@ const replaceTag = (source: string, appendStr: string, tagName: string, attribut
   const startStr = source.slice(0, start + startTag.length) || "";
   const endStr = source.slice(end) || "";
   return `${startStr}\n\n${appendStr}\n\n${endStr}`;
-}
+};
 
-
-export const getReadmePath = () => path.join(process.cwd(), 'readme.md');
-export const getSrcReadmePath = () => path.join(process.cwd(), 'src', 'readme.md');
+export const getReadmePath = () => path.join(process.cwd(), "readme.md");
+export const getSrcReadmePath = () =>
+  path.join(process.cwd(), "src", "readme.md");
 
 export const getStencil = () => {
   const filePath = getReadmePath();
   if (!fse.existsSync(filePath)) {
-    return '';
+    return "";
   }
 
-  return fse.readFileSync(filePath, 'utf8');
-}
+  return fse.readFileSync(filePath, "utf8");
+};
 
 export const genReadmeStr = (data: Record<string, any>) => {
   logger.debug(`genReadmeStr data: ${JSON.stringify(data)}`);
@@ -148,64 +153,75 @@ export const genReadmeStr = (data: Record<string, any>) => {
 
   // 应用描述
   if (appDescription) {
-    endData = replaceTag(endData, appDescription, 'description');
+    endData = replaceTag(endData, appDescription, "description");
   }
 
   // 所需要的前置服务
   if (!lodash.isEmpty(service)) {
     const str = `\n\n| 服务 |  备注  |
 | --- |  --- |
-${service.filter(item => item?.name).map(item => `| ${item.name} |  ${item.description} |`).join('\n')}`;
+${service
+  .filter((item) => item?.name)
+  .map((item) => `| ${item.name} |  ${item.description} |`)
+  .join("\n")}`;
 
-    endData = replaceTag(endData, str, 'service');
+    endData = replaceTag(endData, str, "service");
   }
 
   // 当前应用所需权限
   if (!lodash.isEmpty(auth)) {
-    console.log('auth:: ', auth);
+    console.log("auth:: ", auth);
     const str = `\n\n| 服务/业务 |  权限 |  备注  |
 | --- |  --- |   --- |
-${auth.map(item => `| ${item.service} | ${item.name} |  ${item.description} |`).join('\n')}`;
+${auth
+  .map((item) => `| ${item.service} | ${item.name} |  ${item.description} |`)
+  .join("\n")}`;
 
-    endData = replaceTag(endData, str, 'auth');
+    endData = replaceTag(endData, str, "auth");
   }
 
   // 帮助文档
   if (appdetail) {
-    endData = replaceTag(endData, appdetail, 'appdetail', ' id="flushContent"');
+    endData = replaceTag(endData, appdetail, "appdetail", ' id="flushContent"');
   }
 
   // 使用文档/后续操作
   if (usedetail) {
-    endData = replaceTag(endData, usedetail, 'usedetail', ' id="flushContent"');
+    endData = replaceTag(endData, usedetail, "usedetail", ' id="flushContent"');
   }
 
   // 项目注意事项
   if (remark) {
-    endData = replaceTag(endData, `您还需要注意：   \n${remark}`, 'remark');
+    endData = replaceTag(endData, `您还需要注意：   \n${remark}`, "remark");
   } else {
-    endData = replaceTag(endData, '', 'remark');
+    endData = replaceTag(endData, "", "remark");
   }
   // 项目免责信息
   if (disclaimers) {
-    endData = replaceTag(endData, `免责声明：   \n${disclaimers}`, 'disclaimers');
+    endData = replaceTag(
+      endData,
+      `免责声明：   \n${disclaimers}`,
+      "disclaimers"
+    );
   } else {
-    endData = replaceTag(endData, '', 'disclaimers');
+    endData = replaceTag(endData, "", "disclaimers");
   }
   // 代码仓库地址
   if (codeUrl) {
-    endData = replaceTag(endData, `- [:smiley_cat: 代码](${codeUrl})`, 'codeUrl');
+    endData = replaceTag(
+      endData,
+      `- [:smiley_cat: 代码](${codeUrl})`,
+      "codeUrl"
+    );
   } else {
-    endData = replaceTag(endData, '', 'codeUrl');
+    endData = replaceTag(endData, "", "codeUrl");
   }
   // 项目预览地址
   if (previewUrl) {
-    endData = replaceTag(endData, `- [:eyes: 预览](${previewUrl})`, 'preview');
+    endData = replaceTag(endData, `- [:eyes: 预览](${previewUrl})`, "preview");
   } else {
-    endData = replaceTag(endData, '', 'preview');
+    endData = replaceTag(endData, "", "preview");
   }
 
   return endData;
-}
-
-
+};
