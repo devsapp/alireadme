@@ -56,7 +56,7 @@ const stencil = `
     
 - 通过 [Serverless Devs Cli](https://www.serverless-devs.com/serverless-devs/install) 进行部署：
   - [安装 Serverless Devs Cli 开发者工具](https://www.serverless-devs.com/serverless-devs/install) ，并进行[授权信息配置](https://docs.serverless-devs.com/fc/config) ；
-  - 初始化项目：\`s init {{appName}} -d {{appName}}\`
+  - 初始化项目：\`s init --project {{appName}} -d {{appName}}\`
   - 进入项目，并进行项目部署：\`cd {{appName}} && s deploy -y\`
    
 </deploy>
