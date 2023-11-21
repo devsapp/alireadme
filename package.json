@@ -20,7 +20,7 @@
     "Function Compute"
   ],
   "scripts": {
-    "ln": "rm -rf ~/.s/components/devsapp.cn/readme/dist && ln -s $(pwd)/dist ~/.s/components/devsapp.cn/readme/dist",
+    "ln": "rm -rf ~/.s/components/devsapp.cn/alireadme/dist && ln -s $(pwd)/dist ~/.s/components/devsapp.cn/alireadme/dist",
     "start": "npm run watch",
     "watch": "npm run postbuild && echo \"(new (require('./server').default)).start()\" > dist/run.js && tsc -w",
     "prebuild": "rm -rf dist && npm i",
